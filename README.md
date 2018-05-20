@@ -68,4 +68,4 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin
 ## 后续
 1. 想修改设备的限制，只要修改```shadowsocks.json```中的内容就可以了，1分钟就能生效
 2. 通过 ```tail -n 100 /var/spool/mail/root``` 查看当前各端口的使用情况
-3, 有其他问题请提issue
+3. 有其他问题请提issue
