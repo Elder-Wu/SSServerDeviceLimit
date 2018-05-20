@@ -48,7 +48,7 @@ ssserver -c /etc/shadowsocks.json --user nobody -d start
 
 ##### 切换到命令行，输入如下命令
 ```commandline
-sserver -d stop
+ssserver -d stop
 
 ssserver -c /etc/shadowsocks.json --user nobody -d start
 ```
