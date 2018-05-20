@@ -48,10 +48,8 @@ ssserver -c /etc/shadowsocks.json --user nobody -d start
 <p>sserver -d stop
 <p>ssserver -c /etc/shadowsocks.json --user nobody -d start
 
-
-#### 2.将本项目中的ssdevicelimit.py拷贝到本地，放到/etc目录下，与shadowsocks.json在同一个目录
-
 ## 3.配置Linux的crontab任务列表
+先将本项目中的ssdevicelimit.py拷贝到本地，放到/etc目录下，与shadowsocks.json在同一个目录
 ##### 编辑Linux中的crontab任务
 ```
 crontab -e
