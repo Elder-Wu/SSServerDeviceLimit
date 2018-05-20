@@ -6,7 +6,8 @@ This tool only used for ss-server not ssr-server.
 # 使用方法
 使用前提：你的Linux服务器已经安装了SS server端
 
-## 1.在/etc目录下创建文件shadowsocks.json，文件内容如下:
+## 1.配置Shadowsocks服务
+在/etc目录下创建文件shadowsocks.json，文件内容如下:
 ```json
 {
   "server":"你的服务器ip地址，这里必须填写具体的，比如17.170.120.130，不可以是0.0.0.0或者127.0.0.1",
@@ -36,7 +37,7 @@ This tool only used for ss-server not ssr-server.
 
 ##### 需要注意的是，device_limit中填写的端口号必须出现在port_password中
 
-## 2.配置和重启SS服务
+## 2.重启Shadowsocks服务
 ##### 配置开机启动
 在/etc/rc.local中加入一行
 ssserver -c /etc/shadowsocks.json --user nobody -d start
@@ -44,7 +45,7 @@ ssserver -c /etc/shadowsocks.json --user nobody -d start
 <p>--user 非root用户运行ss服务，确保服务器安全
 <p>-d daemon运行模式
 
-##### 重启ss服务
+##### 先暂停，再启动ss服务
 <p>sserver -d stop
 <p>ssserver -c /etc/shadowsocks.json --user nobody -d start
 
@@ -59,7 +60,7 @@ crontab -e
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 * * * * * cd /etc/; python3.6 ssdevicelimit.py
 ```
-<p>使用的版本是python3，因为我的服务器上python3的环境变量是python3.6，所以上面我写成3.6，请根据你的python环境变量名来改
+<p>必须使用python3.x版本，因为我的服务器上python3的环境变量是python3.6，所以上面我写成了python3.6，请根据你自己的python环境变量名来改
 
 ##### 最后保存，然后你就等着那些恶意分享SS账号的人抱怨吧：
 # 为什么账号不能用了，之前不是好好的吗，FUCK！！！
