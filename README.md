@@ -46,7 +46,7 @@ ssserver -c /etc/shadowsocks.json --user nobody -d start
 <p>--user 非root用户运行ss服务，确保服务器安全
 <p>-d daemon运行模式
 
-##### 先暂停，再启动ss服务
+##### 切换到命令行，输入如下命令
 ```commandline
 sserver -d stop
 
