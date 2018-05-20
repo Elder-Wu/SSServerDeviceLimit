@@ -1,12 +1,12 @@
 # SSServerDeviceLimit
 This tool only used for ss-server not ssr-server.     
-可以让你的SS服务器限制某个端口的设备连接数，亲测有效，不是SSR服务器，防止有人恶意分享账号
+可以让你的SS服务器限制某个端口的设备连接数，防止有人恶意分享账号，亲测有效，不是SSR服务器!
 <p>原理:Linux中通过iptables进行端口和IP的过滤
 
 # 使用方法
 使用前提：你的Linux服务器已经安装了SS server端
 
-#### 1.在/etc目录下创建文件shadowsocks.json，文件内容如下:
+## 1.在/etc目录下创建文件shadowsocks.json，文件内容如下:
 ```json
 {
   "server":"你的服务器ip地址，这里必须填写具体的，比如17.170.120.130，不可以是0.0.0.0或者127.0.0.1",
@@ -31,13 +31,12 @@ This tool only used for ss-server not ssr-server.
   }
 }
 ```
-<p>填写你的服务器IP地址
 <p>在port_password中配置多个端口号和对应的密码，端口号最好不要选用特殊端口，比如22(ssh)，80(http)，记住，这里的端口号一旦分配，就不要轻易删除。否则就要自己通过iptables来删除掉无用的规则
 <p>device_limit中填写需要限制的端口号和设备数量，上面写的意思就是1111端口号最多只能有5个设备同时登录，可以不写，默认就是1
 
 ##### 需要注意的是，device_limit中填写的端口号必须出现在port_password中
 
-#### 2.配置和重启SS服务
+## 2.配置和重启SS服务
 ##### 配置开机启动
 在/etc/rc.local中加入一行
 ssserver -c /etc/shadowsocks.json --user nobody -d start
@@ -52,8 +51,8 @@ ssserver -c /etc/shadowsocks.json --user nobody -d start
 
 #### 2.将本项目中的ssdevicelimit.py拷贝到本地，放到/etc目录下，与shadowsocks.json在同一个目录
 
-#### 3.每隔一分钟检测一次
-##### 编辑Linux中的crontab服务
+## 3.配置Linux的crontab任务列表
+##### 编辑Linux中的crontab任务
 ```
 crontab -e
 ```
