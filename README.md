@@ -38,29 +38,35 @@ This tool only used for ss-server not ssr-server.
 ##### 需要注意的是，device_limit中填写的端口号必须出现在port_password中
 
 ## 2.重启Shadowsocks服务
-##### 配置开机启动
-在/etc/rc.local中加入一行
+##### 配置开机启动，在/etc/rc.local中加入下面的内容
+```commandline
 ssserver -c /etc/shadowsocks.json --user nobody -d start
+```
 <p>-c ss配置文件的路径
 <p>--user 非root用户运行ss服务，确保服务器安全
 <p>-d daemon运行模式
 
 ##### 先暂停，再启动ss服务
-<p>sserver -d stop
-<p>ssserver -c /etc/shadowsocks.json --user nobody -d start
+```commandline
+sserver -d stop
+
+ssserver -c /etc/shadowsocks.json --user nobody -d start
+```
 
 ## 3.配置Linux的crontab任务列表
 先将本项目中的ssdevicelimit.py拷贝到本地，放到/etc目录下，与shadowsocks.json在同一个目录
 ##### 编辑Linux中的crontab任务
-```
+```commandline
 crontab -e
 ```
 ##### 输入如下内容
-```
+```commandline
 #解决crontab报错：service: commond not found,是因为环境变量的问题
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
 #每天0点清空root用户的mail邮件
 0 0 * * * rm -f /var/mail/root
+
 #每分钟都更新一下ss的端口限制
 * * * * * cd /etc/; python3.6 ssdevicelimit.py
 ```
