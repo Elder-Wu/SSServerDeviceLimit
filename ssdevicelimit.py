@@ -3,8 +3,11 @@
 import re
 import os
 import json
+import time
 
 if __name__ == '__main__':
+
+    print('\033[1;33;44m 更新时间  %s \033[0m' % time.strftime("%H:%M", time.localtime()))
 
     with open("shadowsocks.json", "r", encoding="utf-8") as f:
         dict = json.load(f)
