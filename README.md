@@ -65,4 +65,7 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin
 ##### 最后保存，然后你就等着那些恶意分享SS账号的人抱怨吧：
 # 为什么账号不能用了，之前不是好好的吗，FUCK！！！
 
-之后只要修改shadowsocks.json中的内容就可以进行设备限制了，不需要有任何其他改动。有其他问题请提issue
+## 后续
+1. 想修改设备的限制，只要修改```shadowsocks.json```中的内容就可以了，1分钟就能生效
+2. 通过 ```tail -n 100 /var/spool/mail/root``` 查看最新的log信息
+3, 有其他问题请提issue
