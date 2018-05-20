@@ -14,11 +14,11 @@ if __name__ == '__main__':
     device_limit_dict = dict["device_limit"]
 
     for server_port in port_dict:
-        print("筛选出来的[%s]端口使用信息" % server_port)
-        os.system("netstat -np | grep tcp | grep %s:%s | grep ESTAB" % (server_ip, server_port))
-
-        # 查看当前端口的使用情况 local Address : Port 只筛选出建立连接的
-        shell_result = os.popen("netstat -np | grep tcp | grep %s:%s | grep ESTABLISHED" % (server_ip, server_port))
+        # os.system("netstat -np | grep tcp | grep %s:%s | grep ESTAB" % (server_ip, server_port))
+        # os.popen("netstat -np | grep tcp | grep %s:%s | grep ESTAB" % (server_ip, server_port))
+        # ss命令效率高
+        # -t tcp协议 -a 所有 -n 显示成数字
+        shell_result = os.popen("ss -t -a -n | grep %s:%s | grep ESTAB" % (server_ip, server_port))
         info = shell_result.readlines()
         ip_list = re.findall("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", "".join(info))
         connected_ip_set = set(ip_list)
