@@ -27,9 +27,9 @@ if __name__ == '__main__':
         info = os.popen("iptables -L -n --line-numbers | grep %s" % server_port)
         info = info.readlines()
         if (len(info) != 0):
-            print("\n删除[%s]端口的INPUT规则......" % server_port)
+            print("\n清除[%s]端口的INPUT规则......" % server_port)
             for line in info:
-                print(line)
+                print(line, end="")
             index = info[0][0]
             for line in info:
                 os.system("iptables -D INPUT %s" % index)
@@ -38,24 +38,32 @@ if __name__ == '__main__':
         cur_connected_ip_count = len(connected_ip_set)
 
         if (device_limit_count == 0):
+            print('端口:[%s] \033[1;33m不允许所有设备接入，请核实情况\033[0m' % server_port)
             os.system("iptables -A INPUT -p tcp --dport %s -j DROP" % server_port)
-            print("端口：%s  设备限制数量:%s  当前设备数量:0" % (server_port, device_limit_count))
+            print("设备限制数量:%s  已连接设备:%s" % (device_limit_count, device_limit_count))
+
+        if (device_limit_count != 0 and len(connected_ip_set) < device_limit_count):
+            if (len(connected_ip_set) == 0):
+                print('端口:[%s] 未使用' % server_port)
+            else:
+                print('端口:[%s] \033[1;32m正常使用中\033[0m' % server_port)
+            print("设备限制数量:%s  已连接设备:%s" % (device_limit_count, len(connected_ip_set)))
+            for connected_ip in connected_ip_set:
+                print("设备IP:%s" % connected_ip)
 
         if (device_limit_count != 0 and len(connected_ip_set) >= device_limit_count):
+            print('端口:[%s] \033[1;31m设备已满\033[0m' % server_port)
+            print("设备限制数量:%s  已连接设备:%s" % (device_limit_count, device_limit_count))
             count = 0
             for connected_ip in connected_ip_set:
-                print("设备IP[%s]正在使用端口:[%s]" % (connected_ip, server_port))
+                print("设备IP:%s" % connected_ip)
                 os.system("iptables -A INPUT -p tcp -s %s --dport %s -j ACCEPT" % (connected_ip, server_port))
                 count += 1
                 if (count == device_limit_count):
                     break
             os.system("iptables -A INPUT -p tcp --dport %s -j DROP" % server_port)
-            print("端口：%s  设备限制数量:%s  当前设备数量:%s" % (server_port, device_limit_count, device_limit_count))
 
-        if (device_limit_count != 0 and len(connected_ip_set) < device_limit_count):
-            print("端口：%s  设备限制数量:%s  当前设备数量:%s" % (server_port, device_limit_count, len(connected_ip_set)))
-
-        os.system("service iptables save")
+        os.system("service iptables save > /dev/null")
         print("\n")
 
     os.system("iptables -L -n --line-number")
