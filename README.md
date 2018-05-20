@@ -4,7 +4,7 @@ This tool only used for ss-server not ssr-server.
 <p>原理:Linux中通过iptables进行端口和IP的过滤，俗称防火墙
 
 # 使用方法
-使用前提：你的Linux服务器已经安装了SS server端
+使用前提：你的Linux服务器已经安装了SS server端，还需要安装iptables
 
 ## 1.配置Shadowsocks服务
 在/etc目录下创建文件shadowsocks.json，文件内容如下:
@@ -76,6 +76,6 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin
 # 为什么账号不能用了，之前不是好好的吗，FUCK！！！
 
 ## 后续
-1. 想修改设备的限制，只要修改```shadowsocks.json```中的内容就可以了，1分钟就能生效
-2. 通过 ```tail -n 100 /var/mail/root``` 查看当前各端口的使用情况
+1. 以上操作都确保无误的话，想限制某个端口的设备数量，只要修改```shadowsocks.json```中的内容就可以了，1分钟就能生效，其他的什么都不要干！！！
+2. 通过 ```tail -n 100 /var/mail/root``` 查看当前各端口的使用情况，以及使用端口的设备IP
 3. 有其他问题请提issue
