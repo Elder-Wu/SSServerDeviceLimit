@@ -57,7 +57,11 @@ crontab -e
 ```
 ##### 输入如下内容
 ```
+#解决crontab报错：service: commond not found,是因为环境变量的问题
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
+#每天0点清空root用户的mail邮件
+0 0 * * * rm -f /var/mail/root
+#每分钟都更新一下ss的端口限制
 * * * * * cd /etc/; python3.6 ssdevicelimit.py
 ```
 <p>必须使用python3.x版本，因为我的服务器上python3的环境变量是python3.6，所以上面我写成了python3.6，请根据你自己的python环境变量名来改
