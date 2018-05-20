@@ -5,7 +5,7 @@ This tool only used for ss-server not ssr-server.
 # 使用方法
 使用前提：你的Linux服务器已经安装了SS server端
 
-####1.在/etc目录下创建文件shadowsocks.json，这给ss的配置文件，文件内容如下:
+#### 1.在/etc目录下创建文件shadowsocks.json，这给ss的配置文件，文件内容如下:
 ```json
 {
   "server":"你的服务器ip地址，这里必须填写具体的，比如17.170.120.130，不可以是0.0.0.0或者127.0.0.1",
@@ -36,37 +36,37 @@ This tool only used for ss-server not ssr-server.
 <p>在port_password中配置多个端口号和对应的密码，端口号最好不要选用特殊端口，比如22(ssh)，80(http)
 <p>device_limit中填写需要限制的端口号和设备数量，上面写的意思就是1111端口号最多只能有5个设备同时登录，不写的话默认就是1
 
-#####需要注意的是，device_limit中填写的端口号必须出现在port_password中，一旦填写，就不要轻易删除
+##### 需要注意的是，device_limit中填写的端口号必须出现在port_password中，一旦填写，就不要轻易删除
 
-####2.配置和重启SS服务
-#####配置开机启动
+#### 2.配置和重启SS服务
+##### 配置开机启动
 在/etc/rc.local中加入一行
 ssserver -c /etc/shadowsocks.json --user nobody -d start
 <p>-c ss配置文件的路径
 <p>--user 非root用户运行ss服务，确保服务器安全
 <p>-d daemon运行模式
 
-#####重启ss服务
+##### 重启ss服务
 <p>sserver -d stop
 <p>ssserver -c /etc/shadowsocks.json --user nobody -d start
 
 
-####2.将本项目中的ssdevicelimit.py拷贝到本地，放到/etc目录下，与shadowsocks.json在同一个目录
+#### 2.将本项目中的ssdevicelimit.py拷贝到本地，放到/etc目录下，与shadowsocks.json在同一个目录
 
-####3.每隔一分钟检测一次
-#####编辑Linux中的crontab服务
+#### 3.每隔一分钟检测一次
+##### 编辑Linux中的crontab服务
 ```
 crontab -e
 ```
-#####输入如下内容
+##### 输入如下内容
 ```
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 * * * * * cd /etc/; python3.6 ssdevicelimit.py
 ```
 <p>使用的版本是python3，因为我的服务器上python3的环境变量是python3.6，所以上面我写成3.6，请根据你的python环境变量名来改
 
-#####最后保存，然后你就等着那些恶意分享SS账号的人抱怨吧：
-#为什么账号不能用了，之前不是好好的吗，FUCK！！！
+##### 最后保存，然后你就等着那些恶意分享SS账号的人抱怨吧：
+# 为什么账号不能用了，之前不是好好的吗，FUCK！！！
 
 
 有任何问题请提issue
