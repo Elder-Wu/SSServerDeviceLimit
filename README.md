@@ -3,6 +3,13 @@ This tool only used for ss-server not ssr-server.
 可以让你的SS服务器限制某个端口的设备连接数，防止有人恶意分享账号，亲测有效，不是SSR服务器!
 <p>原理:Linux中通过iptables进行端口和IP的过滤，俗称防火墙
 
+### 运行截图
+![未使用状态](never_used.png)
+![正常使用](normal_use.png)
+![设备连接数量达到极限](device_full.png)
+![端口异常](all_device_limit.png)
+
+
 # 使用方法
 使用前提：你的Linux服务器已经安装了SS server端，还需要安装iptables
 
