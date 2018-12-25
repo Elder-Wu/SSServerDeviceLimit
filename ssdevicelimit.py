@@ -16,7 +16,7 @@ if __name__ == '__main__':
     port_dict = dict["port_password"]
     device_limit_dict = dict["device_limit"]
 
-    for server_port in port_dict:
+    for server_port, password in port_dict.items():
         # os.system("netstat -np | grep tcp | grep %s:%s | grep ESTAB" % (server_ip, server_port))
         # os.popen("netstat -np | grep tcp | grep %s:%s | grep ESTAB" % (server_ip, server_port))
         # ss命令效率高
@@ -41,22 +41,22 @@ if __name__ == '__main__':
         cur_connected_ip_count = len(connected_ip_set)
 
         if (device_limit_count == 0):
-            print('端口:[%s] \033[1;33m不允许所有设备接入，请检查配置文件\033[0m' % server_port)
+            print('端口:[%s-%s] \033[1;33m不允许所有设备接入，请检查配置文件\033[0m' % (server_port, password))
             os.system("iptables -A INPUT -p tcp --dport %s -j DROP" % server_port)
             os.system("iptables -A INPUT -p udp --dport %s -j DROP" % server_port)
             print("设备限制数量:%s  已连接设备:%s" % (device_limit_count, device_limit_count))
 
         if (device_limit_count != 0 and len(connected_ip_set) < device_limit_count):
             if (len(connected_ip_set) == 0):
-                print('端口:[%s] 未使用' % server_port)
+                print('端口:[%s-%s] 未使用' % (server_port, password))
             else:
-                print('端口:[%s] \033[1;32m正常使用中\033[0m' % server_port)
+                print('端口:[%s-%s] \033[1;32m正常使用中\033[0m' % (server_port, password))
             print("设备限制数量:%s  已连接设备:%s" % (device_limit_count, len(connected_ip_set)))
             for connected_ip in connected_ip_set:
                 print("设备IP:%s" % connected_ip)
 
         if (device_limit_count != 0 and len(connected_ip_set) >= device_limit_count):
-            print('端口:[%s] \033[1;31m设备已满\033[0m' % server_port)
+            print('端口:[%s-%s] \033[1;31m设备已满\033[0m' % (server_port, password))
             print("设备限制数量:%s  已连接设备:%s" % (device_limit_count, device_limit_count))
             count = 0
             for connected_ip in connected_ip_set:
