@@ -31,7 +31,7 @@ if __name__ == '__main__':
         info = info.readlines()
         result_lines = []
         for line in info:
-            if line.strip().endwith(str(server_port)):
+            if line.strip().endswith(str(server_port)):
                 continue
             result_lines.append(line)
 
