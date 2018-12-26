@@ -29,14 +29,6 @@ if __name__ == '__main__':
 
         info = os.popen("iptables -t filter -L INPUT -n --line-numbers | grep '%s '" % server_port)
         info = info.readlines()
-        result_lines = []
-        for line in info:
-            if line.strip().endswith(str(server_port)):
-                continue
-            result_lines.append(line)
-
-        info = result_lines
-
         if len(info) != 0:
             print("\n清除[%s]端口的INPUT规则......" % server_port)
             for line in info:
