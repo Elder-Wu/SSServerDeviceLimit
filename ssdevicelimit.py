@@ -28,8 +28,8 @@ if __name__ == '__main__':
         connected_ip_set.discard(server_ip)
 
         info = os.popen("iptables -t filter -L INPUT -n --line-numbers | grep '%s '" % server_port)
-        info = info.readlines()
-        if (len(info) != 0):
+        info = filter(lambda s: s.strip().endwith(str(server_port)), info.readlines())
+        if len(info) != 0:
             print("\n清除[%s]端口的INPUT规则......" % server_port)
             for line in info:
                 print(line, end="")
