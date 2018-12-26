@@ -21,8 +21,7 @@ if __name__ == '__main__':
         # os.popen("netstat -np | grep tcp | grep %s:%s | grep ESTAB" % (server_ip, server_port))
         # ss命令效率高
         # -t tcp协议 -a 所有 -n 显示成数字
-        shell_result = os.popen("ss -t -a -n | grep ‘%s:%s ’ | grep ESTAB" % (server_ip, server_port))
-        print("ss -t -a -n | grep ‘%s:%s ’ | grep ESTAB\n" % (server_ip, server_port))
+        shell_result = os.popen("ss -t -a -n | grep '%s:%s ' | grep ESTAB" % (server_ip, server_port))
         info = shell_result.readlines()
         ip_list = re.findall("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", "".join(info))
         connected_ip_set = set(ip_list)
