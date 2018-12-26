@@ -16,6 +16,7 @@ if __name__ == '__main__':
     port_dict = dict["port_password"]
     device_limit_dict = dict["device_limit"]
 
+    os.system("iptables -F")
     for server_port, password in port_dict.items():
         # os.system("netstat -np | grep tcp | grep %s:%s | grep ESTAB" % (server_ip, server_port))
         # os.popen("netstat -np | grep tcp | grep %s:%s | grep ESTAB" % (server_ip, server_port))
@@ -27,16 +28,6 @@ if __name__ == '__main__':
         connected_ip_set = set(ip_list)
         connected_ip_set.discard(server_ip)
 
-        info = os.popen("iptables -t filter -L INPUT -n --line-numbers | grep '%s '" % server_port)
-        info = info.readlines()
-        if len(info) != 0:
-            print("\n清除[%s]端口的INPUT规则......" % server_port)
-            for line in info:
-                print(line, end="")
-            index = info[0][0]
-            for line in info:
-                os.system("iptables -D INPUT %s" % index)
-
         device_limit_count = device_limit_dict.get(server_port, 1)
         cur_connected_ip_count = len(connected_ip_set)
 
@@ -46,16 +37,16 @@ if __name__ == '__main__':
             os.system("iptables -A INPUT -p udp --dport %s -j DROP" % server_port)
             print("设备限制数量:%s  已连接设备:%s" % (device_limit_count, device_limit_count))
 
-        if (device_limit_count != 0 and len(connected_ip_set) < device_limit_count):
-            if (len(connected_ip_set) == 0):
+        if (device_limit_count != 0 and cur_connected_ip_count < device_limit_count):
+            if (cur_connected_ip_count == 0):
                 print('端口:[%s-%s] 未使用' % (server_port, password))
             else:
                 print('端口:[%s-%s] \033[1;32m正常使用中\033[0m' % (server_port, password))
-            print("设备限制数量:%s  已连接设备:%s" % (device_limit_count, len(connected_ip_set)))
+            print("设备限制数量:%s  已连接设备:%s" % (device_limit_count, cur_connected_ip_count))
             for connected_ip in connected_ip_set:
                 print("设备IP:%s" % connected_ip)
 
-        if (device_limit_count != 0 and len(connected_ip_set) >= device_limit_count):
+        if (device_limit_count != 0 and cur_connected_ip_count >= device_limit_count):
             print('端口:[%s-%s] \033[1;31m设备已满\033[0m' % (server_port, password))
             print("设备限制数量:%s  已连接设备:%s" % (device_limit_count, device_limit_count))
             count = 0
