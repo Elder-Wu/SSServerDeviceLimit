@@ -60,7 +60,8 @@ if __name__ == '__main__':
             os.system("iptables -A INPUT -p tcp --dport %s -j DROP" % server_port)
             os.system("iptables -A INPUT -p udp --dport %s -j DROP" % server_port)
 
-        os.system("service iptables save > /dev/null")
         print("\n")
 
+    os.system("service iptables save > /dev/null")
     os.system("iptables -t filter -L INPUT -n --line-number")
+
