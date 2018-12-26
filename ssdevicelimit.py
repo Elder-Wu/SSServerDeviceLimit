@@ -28,9 +28,15 @@ if __name__ == '__main__':
         connected_ip_set.discard(server_ip)
 
         info = os.popen("iptables -t filter -L INPUT -n --line-numbers | grep '%s '" % server_port)
-        aaa = info.readlines();
-        print("typeof aaa:" + type(aaa) + "\n")
-        info = filter(lambda s: s.strip().endwith(str(server_port)), info.readlines())
+        info = info.readlines()
+        result_lines = []
+        for line in info:
+            if line.strip().endwith(str(server_port)):
+                continue
+            result_lines.append(line)
+
+        info = result_lines
+
         if len(info) != 0:
             print("\n清除[%s]端口的INPUT规则......" % server_port)
             for line in info:
