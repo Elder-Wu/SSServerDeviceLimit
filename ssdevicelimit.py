@@ -27,7 +27,7 @@ if __name__ == '__main__':
         connected_ip_set = set(ip_list)
         connected_ip_set.discard(server_ip)
 
-        info = os.popen("iptables -t filter -L INPUT -n --line-numbers | grep %s" % server_port)
+        info = os.popen("iptables -t filter -L INPUT -n --line-numbers | grep '%s '" % server_port)
         info = info.readlines()
         if (len(info) != 0):
             print("\n清除[%s]端口的INPUT规则......" % server_port)
