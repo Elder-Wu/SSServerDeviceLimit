@@ -29,7 +29,6 @@ if __name__ == '__main__':
 
         info = os.popen("iptables -t filter -L INPUT -n --line-numbers | grep '%s '" % server_port)
         aaa = info.readlines();
-        print("aaa\n" + aaa)
         print("typeof aaa:" + type(aaa) + "\n")
         info = filter(lambda s: s.strip().endwith(str(server_port)), info.readlines())
         if len(info) != 0:
