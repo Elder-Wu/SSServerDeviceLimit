@@ -19,7 +19,7 @@ This tool only used for ss-server not ssr-server.
 在/etc目录下创建文件shadowsocks.json，文件内容如下:
 ```json
 {
-  "server":"你的服务器ip地址，这里必须填写具体的，比如17.170.120.130，不可以是0.0.0.0或者127.0.0.1",
+  "server":"0.0.0.0",
   "local_address": "127.0.0.1",
   "local_port":1080,
   "port_password":{

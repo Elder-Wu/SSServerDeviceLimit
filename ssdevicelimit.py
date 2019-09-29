@@ -4,6 +4,7 @@ import re
 import os
 import json
 import time
+import urllib.request
 
 if __name__ == '__main__':
 
@@ -12,7 +13,12 @@ if __name__ == '__main__':
     with open("shadowsocks.json", "r", encoding="utf-8") as f:
         dict = json.load(f)
 
-    server_ip = dict["server"]
+    # 从指定网站获取IP地址
+    with urllib.request.urlopen("https://icanhazip.com") as f:
+        body = f.read()  # 报文内容
+        server_ip = body.decode('utf-8')
+        print("本机公网IP地址:%s", server_ip)
+
     port_dict = dict["port_password"]
     device_limit_dict = dict["device_limit"]
 
@@ -64,4 +70,3 @@ if __name__ == '__main__':
 
     os.system("service iptables save > /dev/null")
     os.system("iptables -t filter -L INPUT -n --line-number")
-
