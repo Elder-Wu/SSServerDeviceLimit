@@ -49,18 +49,11 @@ This tool only used for ss-server not ssr-server.
 ## 2.重启Shadowsocks服务
 ##### 配置开机启动，在/etc/rc.local中加入下面的内容
 ```commandline
-ssserver -c /etc/shadowsocks.json --user nobody -d start
+ssserver -c /etc/shadowsocks.json --user nobody -d restart
 ```
-<p>-c ss配置文件的路径
-<p>--user 非root用户运行ss服务，确保服务器安全
-<p>-d daemon运行模式
-
-##### 切换到命令行，输入如下命令
-```commandline
-ssserver -d stop
-
-ssserver -c /etc/shadowsocks.json --user nobody -d start
-```
+<p>-c ss配置文件的路径，本例的路径是/etc/shadowsocks.json
+<p>--user 使用非root用户运行ss服务，可以确保服务器安全。这里是nobody用户
+<p>-d daemon运行模式，这里是restart命令，常用的还有start,stop等命令
 
 ## 3.配置Linux的crontab任务列表
 先将本项目中的ssdevicelimit.py拷贝到本地，放到/etc目录下，与shadowsocks.json在同一个目录
